@@ -6,7 +6,7 @@ function init() {
     var width = document.getElementById("game-canvas").width;
     var height = document.getElementById("game-canvas").height;
 
-    renderer = PIXI.autoDetectRenderer(512, 384, {
+    renderer = PIXI.autoDetectRenderer(512, 550, {
         view: document.getElementById("game-canvas")
     });
 
@@ -17,24 +17,41 @@ function init() {
 }
 
 function setSquares() {
+    createPortal(100, 100, "0:0");
+    createPortal(100, 200, "-1:1");
+    createPortal(200, 100, "0:1");
+    createPortal(200, 200, "0:-1");
+    createPortal(300, 200, "0:0");
+    createPortal(300, 100, "0:0");
+    createPortal(100, 300, "0:0");
+    createPortal(200, 300, "0:0");
+    createPortal(300, 300, "-3:-3");
+
+}
+
+function createPortal(posX, posY, name) {
+
+    stage.addChild(createASquare(posX, posY, name));
+    stage.addChild(createTxt(posX, posY, name));
+
+}
+
+
+function createTxt(posX, posY, str) {
     var txt = new PIXI.Text(
-        "0:2", {
+        str, {
             fontFamily: "Arial",
             fontSize: 12,
             fill: "white"
         }
     );
 
-    txt.position.set(54, 96);
-    stage.addChild(txt);
-
-    stage.addChild(createASquare(170, 170));
-    stage.addChild(createASquare(270, 270));
-
+    txt.position.set(posX, posY);
+    return txt;
 
 }
 
-function createASquare(posX, posY) {
+function createASquare(posX, posY, name) {
     var rectangle = new PIXI.Graphics();
     rectangle.lineStyle(4, 0xFF3300, 1);
     rectangle.beginFill(0x66CCFF);
@@ -44,7 +61,6 @@ function createASquare(posX, posY) {
     rectangle.y = posY;
 
     return rectangle;
-
 
 }
 
