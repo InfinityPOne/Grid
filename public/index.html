@@ -6,68 +6,24 @@
     <title>Hello World</title>
     <style>
         body {
-            background-color: #000000;
+            background-color: #d3c8b5;
         }
         
         canvas {
-            background-color: #222222;
+            background-color: #433131;
         }
 
     </style>
 </head>
 
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.3/pixi.js"></script>
+<script src="js/grid.js"></script>
 
 <body onload="init();">
     <div align="center">
         <canvas id="game-canvas" width="1512" height="1384"></canvas>
     </div>
 
-    <script>
-        function init() {
-            var width = document.getElementById("game-canvas").width;
-            var height = document.getElementById("game-canvas").height;
-
-            stage = new PIXI.Container();
-
-            renderer = PIXI.autoDetectRenderer(512, 384, {
-                view: document.getElementById("game-canvas")
-            });
-
-            var farTexture = PIXI.Texture.fromImage("resources/bg-far.png");
-            far = new PIXI.extras.TilingSprite(farTexture, 512, 256);
-            far.position.x = 0;
-            far.position.y = 0;
-            far.tilePosition.x = 0;
-            far.tilePosition.y = 0;
-            stage.addChild(far);
-
-            var midTexture = PIXI.Texture.fromImage("resources/bg-mid.png");
-            mid = new PIXI.extras.TilingSprite(midTexture, 512, 256);
-            mid.position.x = 0;
-            mid.position.y = 128;
-            mid.tilePosition.x = 0;
-            mid.tilePosition.y = 0;
-            stage.addChild(mid);
-
-            requestAnimationFrame(update);
-
-        }
-
-        function update() {
-            far.tilePosition.x -= 0.128;
-            mid.tilePosition.x -= 0.64;
-
-            renderer.render(stage);
-
-            requestAnimationFrame(update);
-        }
-
-    </script>
 </body>
-
-
-
 
 </html>
