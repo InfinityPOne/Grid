@@ -16,6 +16,7 @@ function init() {
 
     setSquaresBlock(0, 0);
     setSquaresBlock(1, 0);
+    setSquaresBlock(2, 0);
 
     requestAnimationFrame(update);
 
@@ -26,11 +27,24 @@ function setSquaresBlock(squareX, squareY) {
     var stage = new PIXI.Container();
     var offsetX = squareX * 300;
     var offsetY;
+    var txt;
+
+
+    stage.x = stage.x + offsetX;
 
     for (i = 0; i < 3; i++) {
         for (j = 0; j < 3; j++) {
 
-            createPortal(stage, (i * rectWidth) + offsetX, j * rectHeight, (i + squareX) + ":" + j);
+            if (squareX == 0) {
+                txt = i + ":" + j;
+            } else {
+
+                txt = i + (squareX * 3) + ":" + j;
+                console.log(squareX);
+            }
+
+
+            createPortal(stage, i * rectWidth, j * rectHeight, txt);
         }
     }
 
@@ -80,13 +94,17 @@ function update() {
 
     stages.forEach(function (stage, index, array) {
 
+        stage.x -= 1;
 
-        console.log(stage.x)
+        if (stage.x < 0) {
+            // ToDo 
+            theGrid.removeChild(stage);
+            stages.splice(index, 1);
+            console.log(stageCount)
+            setSquaresBlock(stageCount, 0);
 
-        stage.x += 1;
-
-        if (stage.x > 500) {
-            stage.x = 0;
+            // create a new one
+            // stage.x = 0;
         }
 
     });
