@@ -11,6 +11,7 @@ function init() {
     });
 
     setSquares();
+    stage.position.set(-64, 64);
 
     requestAnimationFrame(update);
 
@@ -65,6 +66,12 @@ function createASquare(posX, posY, name) {
 }
 
 function update() {
+
+    stage.x += 1;
+
+    if (stage.x > 500) {
+        stage.x = 0;
+    }
 
     renderer.render(stage);
 
