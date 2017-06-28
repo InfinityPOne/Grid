@@ -1,34 +1,46 @@
 const rectWidth = 100;
 const rectHeight = 100;
-const stage = new PIXI.Container();
+
 var stages = [];
+var stageCount = 0;
+
+var theGrid = new PIXI.Container();
 
 function init() {
     var width = document.getElementById("game-canvas").width;
     var height = document.getElementById("game-canvas").height;
 
-    renderer = PIXI.autoDetectRenderer(512, 550, {
+    renderer = PIXI.autoDetectRenderer(1512, 1550, {
         view: document.getElementById("game-canvas")
     });
 
-    setSquaresBlock();
-    stage.position.set(-64, 64);
+    setSquaresBlock(0, 0);
+    setSquaresBlock(1, 0);
 
     requestAnimationFrame(update);
 
 }
 
-function setSquaresBlock() {
+function setSquaresBlock(squareX, squareY) {
+
+    var stage = new PIXI.Container();
+    var offsetX = squareX * 300;
+    var offsetY;
 
     for (i = 0; i < 3; i++) {
         for (j = 0; j < 3; j++) {
-            createPortal(i * rectWidth, j * rectHeight, i + ":" + j);
+
+            createPortal(stage, (i * rectWidth) + offsetX, j * rectHeight, (i + squareX) + ":" + j);
         }
     }
 
+    theGrid.addChild(stage);
+
+    stages[stageCount] = stage;
+    stageCount++;
 }
 
-function createPortal(posX, posY, name) {
+function createPortal(stage, posX, posY, name) {
 
     stage.addChild(createASquare(posX, posY, name));
     stage.addChild(createTxt(posX, posY, name));
@@ -65,13 +77,21 @@ function createASquare(posX, posY, name) {
 
 function update() {
 
-    stage.x += 1;
 
-    if (stage.x > 500) {
-        stage.x = 0;
-    }
+    stages.forEach(function (stage, index, array) {
 
-    renderer.render(stage);
+
+        console.log(stage.x)
+
+        stage.x += 1;
+
+        if (stage.x > 500) {
+            stage.x = 0;
+        }
+
+    });
+
+    renderer.render(theGrid);
 
     requestAnimationFrame(update);
 }
