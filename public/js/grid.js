@@ -1,6 +1,7 @@
 const rectWidth = 100;
 const rectHeight = 100;
 const stage = new PIXI.Container();
+var stages = [];
 
 function init() {
     var width = document.getElementById("game-canvas").width;
@@ -10,23 +11,20 @@ function init() {
         view: document.getElementById("game-canvas")
     });
 
-    setSquares();
+    setSquaresBlock();
     stage.position.set(-64, 64);
 
     requestAnimationFrame(update);
 
 }
 
-function setSquares() {
-    createPortal(100, 100, "0:0");
-    createPortal(100, 200, "-1:1");
-    createPortal(200, 100, "0:1");
-    createPortal(200, 200, "0:-1");
-    createPortal(300, 200, "0:0");
-    createPortal(300, 100, "0:0");
-    createPortal(100, 300, "0:0");
-    createPortal(200, 300, "0:0");
-    createPortal(300, 300, "-3:-3");
+function setSquaresBlock() {
+
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++) {
+            createPortal(i * rectWidth, j * rectHeight, i + ":" + j);
+        }
+    }
 
 }
 
