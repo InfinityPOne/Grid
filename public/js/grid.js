@@ -11,16 +11,17 @@ function init() {
     var width = document.getElementById("game-canvas").width;
     var height = document.getElementById("game-canvas").height;
 
-    renderer = PIXI.autoDetectRenderer(1512, 1550, {
+    renderer = PIXI.autoDetectRenderer(2512, 1550, {
         view: document.getElementById("game-canvas")
     });
 
-
     // set the inital sqaure grid
-    for (squareBlockWidthCount = 0; squareBlockWidthCount <= 5; squareBlockWidthCount++) {
-        setSquaresBlock(squareBlockWidthCount, 0);
-    }
+    for (var i = 0; i <= 5; i++) {
+        setSquaresBlock(i, 0);
 
+    }
+    //always render this many blocks
+    squareBlockWidthCount = i;
 
     requestAnimationFrame(update);
 
@@ -74,6 +75,21 @@ function createTxt(posX, posY, str) {
     return txt;
 
 }
+
+function createImg(posX, posY, str) {
+    var txt = new PIXI.Text(
+        str, {
+            fontFamily: "Arial",
+            fontSize: 22,
+            fill: "white"
+        }
+    );
+
+    txt.position.set(posX, posY);
+    return txt;
+
+}
+
 
 function createASquare(posX, posY, name) {
     var rectangle = new PIXI.Graphics();
