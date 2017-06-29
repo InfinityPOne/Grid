@@ -40,13 +40,10 @@ function setSquaresBlock(squareX, squareY) {
     for (i = 0; i < 3; i++) {
         for (j = 0; j < 3; j++) {
 
-            if (squareX == 0) {
-                txt = i + ":" + j;
-            } else {
+            // how do I get the right txt here??
+            txt =
 
-                txt = i + (squareX * 3) + ":" + j;
-            }
-            createPortal(stage, i * rectWidth, j * rectHeight, txt);
+                createPortal(stage, i * rectWidth, j * rectHeight, txt);
         }
     }
 
