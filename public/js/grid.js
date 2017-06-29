@@ -3,6 +3,7 @@ const rectHeight = 100;
 
 var stages = [];
 var stageCount = 0;
+var squareBlockWidthCount;
 
 var theGrid = new PIXI.Container();
 
@@ -14,21 +15,25 @@ function init() {
         view: document.getElementById("game-canvas")
     });
 
-    setSquaresBlock(0, 0);
-    setSquaresBlock(1, 0);
-    setSquaresBlock(2, 0);
+
+    // set the inital sqaure grid
+    for (squareBlockWidthCount = 0; squareBlockWidthCount <= 5; squareBlockWidthCount++) {
+        setSquaresBlock(squareBlockWidthCount, 0);
+    }
+
 
     requestAnimationFrame(update);
 
 }
 
 function setSquaresBlock(squareX, squareY) {
+    //squareX refers to the precis location of the block that contains the 3x3 sqaures 
+    //squareY refers to the precis location of the block that contains the 3x3 sqaures 
 
     var stage = new PIXI.Container();
-    var offsetX = squareX * 300;
+    var offsetX = squareX * rectWidth * 3;
     var offsetY;
     var txt;
-
 
     stage.x = stage.x + offsetX;
 
@@ -40,10 +45,7 @@ function setSquaresBlock(squareX, squareY) {
             } else {
 
                 txt = i + (squareX * 3) + ":" + j;
-                console.log(squareX);
             }
-
-
             createPortal(stage, i * rectWidth, j * rectHeight, txt);
         }
     }
@@ -66,7 +68,7 @@ function createTxt(posX, posY, str) {
     var txt = new PIXI.Text(
         str, {
             fontFamily: "Arial",
-            fontSize: 12,
+            fontSize: 22,
             fill: "white"
         }
     );
@@ -79,7 +81,7 @@ function createTxt(posX, posY, str) {
 function createASquare(posX, posY, name) {
     var rectangle = new PIXI.Graphics();
     rectangle.lineStyle(4, 0xFF3300, 1);
-    rectangle.beginFill(0x66CCFF);
+    rectangle.beginFill(0x17709d);
     rectangle.drawRect(0, 0, rectWidth, rectHeight);
     rectangle.endFill();
     rectangle.x = posX;
@@ -94,17 +96,13 @@ function update() {
 
     stages.forEach(function (stage, index, array) {
 
-        stage.x -= 1;
+        stage.x -= 2;
 
         if (stage.x < 0) {
-            // ToDo 
+
             theGrid.removeChild(stage);
             stages.splice(index, 1);
-            console.log(stageCount)
-            setSquaresBlock(stageCount, 0);
-
-            // create a new one
-            // stage.x = 0;
+            setSquaresBlock(squareBlockWidthCount, 0);
         }
 
     });
