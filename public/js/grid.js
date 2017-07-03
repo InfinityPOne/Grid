@@ -1,9 +1,7 @@
 const rectWidth = 100;
 const rectHeight = 100;
 
-
 var stages = [];
-var stageCount = 0;
 var squareBlockWidthCount;
 var gridCurrentRight = 0;
 var gridCurrentLeft = 0;
@@ -21,7 +19,14 @@ function init() {
         view: document.getElementById("game-canvas")
     });
 
-    // set the inital sqaure grid
+    // set the inital square grid (5 x 3)
+    // each sqaure block is (3 x 3)
+    // 
+    // X X X X X 
+    // X X X X X
+    // X X X X X
+    //
+
     for (var i = 0; i <= 5; i++) {
         setSquaresBlock(i, 0);
         setSquaresBlock(i, 1);
@@ -46,6 +51,7 @@ function setSquaresBlock(squareX, squareY) {
     stage.x = stage.x + offsetX;
     stage.y = stage.y + offsetY;
 
+    // create 3 x 3 portals
     for (i = 0; i < 3; i++) {
         // really this is x loc
         // need to take direction here. but for now always right
@@ -57,32 +63,35 @@ function setSquaresBlock(squareX, squareY) {
             gridCurrentTop = j;
 
             txt = "X:" + gridCurrentRight + " Y:" + gridCurrentTop;
-
+            // create a single portal
             createPortal(stage, i * rectWidth, j * rectHeight, txt);
         }
     }
 
+    //add it to the engine
     theGrid.addChild(stage);
 
-    // stages[stageCount] = stage;
+    // add the stage to the array 'stages'
     stages.push({
         stage: stage,
         x: squareX,
         y: squareY
     });
 
-    stageCount++;
 }
 
 function createPortal(stage, posX, posY, name) {
-
+    //add a physical square 
     stage.addChild(createASquare(posX, posY, name));
+    //add some text
     stage.addChild(createTxt(posX, posY, name));
 
 }
 
 
 function createTxt(posX, posY, str) {
+    //create text routine
+
     var txt = new PIXI.Text(
         str, {
             fontFamily: "Arial",
@@ -102,6 +111,7 @@ function createImg(posX, posY, str) {
 
 
 function createASquare(posX, posY, name) {
+    // create a rectangle
     var rectangle = new PIXI.Graphics();
     rectangle.lineStyle(4, 0xFF3300, 1);
     rectangle.beginFill(0x17709d);
@@ -115,14 +125,20 @@ function createASquare(posX, posY, name) {
 }
 
 function update() {
+    // the 'game engine'
+    // 
 
+    // change to -1 to go right to left
+    // change to 1 to go left to right
+    // increase the number to go faster!
     var increment = -1;
     var count = 0;
 
     stages.forEach(function (stage, index, array) {
 
         //I get some slippage here with the stage
-        // need to take the 1 (increment) into play
+        // need to take the '1' (increment) into play
+
         stage.stage.x += increment;
     });
 
@@ -149,20 +165,24 @@ function update() {
         }
 
     });
-    console.log('-------------------');
 
+    // calls the debug function 
     debug();
+
+    // calls the debug function 
     renderer.render(theGrid);
 
+    // around we go again - call the game engine recusivly.
     requestAnimationFrame(update);
 }
 
 
-// -----> DEBUG 
+// -----> DEBUG <----------------------------------------------------------
+// -----> DEBUG <----------------------------------------------------------
+// -----> DEBUG <----------------------------------------------------------
 
-
-var isDebug = false;
-var isPause = false;
+var isDebug = false; //CTRL+SHIT+I
+var isPause = false; //flick this to pause one game loop. painful but works
 var lineCount = 0;
 
 function debug() {
@@ -170,9 +190,10 @@ function debug() {
     if (!isDebug) {
         return;
     }
-
+    console.log('-------------------');
     console.log('debgu start');
 
+    // go through each element in the array and display in console.
     stages.forEach(function (stage, index, array) {
         console.log(stage.stage + "|x=" + stage.x + "|y=" + stage.y + "|" + stage.stage.x + "|" + index);
     });
