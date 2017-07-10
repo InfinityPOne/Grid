@@ -2,6 +2,8 @@ const rectWidth = 100;
 const rectHeight = 100;
 
 var stages = [];
+
+
 var squareBlockWidthCount;
 var gridCurrentRight = 0;
 var gridCurrentLeft = 0;
@@ -18,6 +20,8 @@ function init() {
     renderer = PIXI.autoDetectRenderer(2512, 1550, {
         view: document.getElementById("game-canvas")
     });
+
+    fn_buildInitialCoors();
 
     // set the inital square grid (5 x 3)
     // each sqaure block is (3 x 3)
