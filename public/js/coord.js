@@ -6,10 +6,13 @@
 //  ----------------------------------------------------------------- 
 
 var coords = [];
+var farLeft = 10000;
+var farRight = 0;
+
 
 function fn_buildInitialCoors() {
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 2; i++) {
         for (var j = 0; j < 10; j++) {
             coords.push({
                 x: i,
@@ -21,22 +24,21 @@ function fn_buildInitialCoors() {
 
     }
 
+    // fn_MoveLeft();
     /*
-    coords.forEach(function (coord, index, array) {
-        console.log(coord.x + "<>" + coord.y + "<>" + coord.xG + "<>" + coord.yG);
-
-    }); */
-
-    fn_MoveRight();
-
+        coords.forEach(function (coord, index, array) {
+            console.log("Debug " + coord.x + "<>" + coord.y + "<>" + coord.xG + "<>" + coord.yG);
+        });
+    */
     return;
 }
 
 
-function fn_MoveRight() {
 
-    var farLeft = 10000;
-    var farRight = 0;
+function fn_setOutSide() {
+
+    farLeft = 10000;
+    farRight = 0;
 
     coords.forEach(function (coord, index, array) {
 
@@ -50,27 +52,32 @@ function fn_MoveRight() {
 
     });
 
-    // delete left Column
-    coords.forEach(function (coord, index, array) {
+}
 
-        console.log("xxxx" + coord.x);
-        console.log(coord.x == farLeft);
+function fn_MoveLeft() {
 
-        ////HHHHHHHHHHHHHERERRERERERERER
+    fn_setOutSide();
 
-        if (coord.x == farLeft) {
-            console.log(index + "|||" + coord.x);
-            coords.splice(index, 1);
+    // delete right Column
+    for (i = coords.length - 1; i >= 0; i -= 1) {
+
+        if (coords[i].x == farRight) {
+            coords.splice(i, 1);
         }
+    }
+}
 
-    });
 
-    coords.forEach(function (coord, index, array) {
-        /*
-                console.log(coord.x == farLeft);
-          */
-        console.log("moveright" + coord.x + "<>" + coord.y + "<>" + coord.xG + "<>" + coord.yG);
 
-    });
+function fn_MoveRight() {
 
+    fn_setOutSide();
+
+    // delete left Column
+    for (i = coords.length - 1; i >= 0; i -= 1) {
+
+        if (coords[i].x == farLeft) {
+            coords.splice(i, 1);
+        }
+    }
 }
