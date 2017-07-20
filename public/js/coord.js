@@ -10,26 +10,26 @@ var farLeft = 10000;
 var farRight = 0;
 
 
+
 function fn_buildInitialCoors() {
 
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 5; i++) {
         for (var j = 0; j < 10; j++) {
             coords.push({
-                x: i,
-                y: j,
-                xG: i + 3,
-                yG: j + 3
+                x: i * rectWidth,
+                y: j * rectHeight,
+                xG: i,
+                yG: j
             });
         }
-
     }
 
     // fn_MoveLeft();
-    /*
-        coords.forEach(function (coord, index, array) {
-            console.log("Debug " + coord.x + "<>" + coord.y + "<>" + coord.xG + "<>" + coord.yG);
-        });
-    */
+
+    coords.forEach(function (coord, index, array) {
+        console.log("Debug<>x:" + coord.x + "<>y:" + coord.y + "<>xG:" + coord.xG + "<>yG:" + coord.yG);
+    });
+
     return;
 }
 
@@ -66,7 +66,6 @@ function fn_MoveLeft() {
         }
     }
 }
-
 
 
 function fn_MoveRight() {

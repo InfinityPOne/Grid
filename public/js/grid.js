@@ -3,13 +3,11 @@ const rectHeight = 100;
 
 var stages = [];
 
-
 var squareBlockWidthCount;
 var gridCurrentRight = 0;
 var gridCurrentLeft = 0;
 var gridCurrentTop = 0;
 var gridCurrentBottom = 0;
-
 
 var theGrid = new PIXI.Container();
 
@@ -21,24 +19,14 @@ function init() {
         view: document.getElementById("game-canvas")
     });
 
-    fn_buildInitialCoors();
+    // fn_buildInitialCoors();
 
-    // set the inital square grid (5 x 3)
-    // each sqaure block is (3 x 3)
-    // 
-    // X X X X X 
-    // X X X X X
-    // X X X X X
-    //
-
-    for (var i = 0; i <= 5; i++) {
-        setSquaresBlock(i, 0);
-        setSquaresBlock(i, 1);
-        setSquaresBlock(i, 2);
-    }
+    //    for (i = 0; i <= coords.length; i++) {
+    //        setSquaresBlock(coords[i].x, coords[i].y);
+    //    }
 
     //always render this many blocks (-1 is because I have one of the screen you cannot see)
-    squareBlockWidthCount = i - 1;
+    //squareBlockWidthCount = i - 1;
     requestAnimationFrame(update);
 
 }
@@ -130,7 +118,6 @@ function createASquare(posX, posY, name) {
 
 function update() {
     // the 'game engine'
-    // 
 
     // change to -1 to go right to left
     // change to 1 to go left to right
